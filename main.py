@@ -4,6 +4,7 @@ import os
 from PIL import Image
 from pandas.core.common import flatten
 import random
+import yaml
 
 import torch
 import torch.nn as nn
@@ -36,12 +37,14 @@ class LoadDataset(Dataset):
     return image, label
 
 if __name__ == "__main__":
-  # Hyper parameters
-  _epoch = 2
-  _batch_size = 32
-  _learning_rate = 0.001
+  with open('config.yaml') as config_file:
+    config = yaml.load(config_file, Loader=yaml.FullLoader)
 
-  dataset_path = "/media/cmes-ai-desktop2/647ef789-13ad-4879-8398-7d255146769b/datasets/aiteam_assignment/"
+  _epoch = config['epoch']
+  _batch_size = config['batch_size']
+  _learning_rate = config['learning_rate']
+
+  dataset_path = config['file_path']
   if not os.path.exists(dataset_path):
     print("Error: invalid dataset path")
     exit()
