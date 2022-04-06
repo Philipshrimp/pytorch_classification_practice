@@ -127,4 +127,5 @@ if __name__ == "__main__":
       total += len(labels)
       correct += (predicted == labels).sum().item()
     
+    torch.save(model.state_dict(), "./models/weights.pt")
     print('Test Accuracy of the model on the {} test images: {} %'.format(total, 100 * correct / total))
